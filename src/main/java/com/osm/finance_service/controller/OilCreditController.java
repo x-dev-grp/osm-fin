@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/finance/oil-credit")
-@CrossOrigin
+
 public class OilCreditController extends BaseControllerImpl<OilCredit, OilCreditDto, OilCreditDto>
  {
 

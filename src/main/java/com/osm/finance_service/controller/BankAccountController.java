@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/finance/banks")
-@CrossOrigin
+
 public class BankAccountController extends BaseControllerImpl<BankAccount, BankAccountDto, BankAccountDto> {
 
 

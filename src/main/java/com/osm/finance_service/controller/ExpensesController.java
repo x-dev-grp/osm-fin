@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/finance/expense")
-@CrossOrigin
+
 public class ExpensesController extends BaseControllerImpl<Expense, ExpenseDto, ExpenseDto>  {
 
 
