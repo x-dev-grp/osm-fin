@@ -82,6 +82,10 @@
         <dependency>
             <groupId>com.xdev</groupId>
             <artifactId>comunicator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xdev</groupId>
+            <artifactId>comunicator</artifactId>
 
         </dependency>
     </dependencies>
