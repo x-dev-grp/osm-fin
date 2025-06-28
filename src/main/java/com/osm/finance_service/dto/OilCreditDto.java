@@ -1,22 +1,25 @@
 package com.osm.finance_service.dto;
 
+import com.osm.finance_service.ennum.CreditState;
 import com.osm.finance_service.ennum.UnitType;
 import com.osm.finance_service.model.OilCredit;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class OilCreditDto extends BaseDto<OilCredit> {
 
 
     private String emballage;
-    private BigDecimal quantity;
     private UnitType unit;
-    private String destinataire;
-    private LocalDate credit_date;
-    private String citerne_pile;
-
+    private Double quantity;
+    private UUID oil_type;
+    private UUID destinataire;
+    private UUID transaction_id_in;
+    private UUID transaction_id_out;
+    private CreditState creditState = CreditState.PENDING;
 
     public String getEmballage() {
         return emballage;
@@ -24,14 +27,6 @@ public class OilCreditDto extends BaseDto<OilCredit> {
 
     public void setEmballage(String emballage) {
         this.emballage = emballage;
-    }
-
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
     }
 
     public UnitType getUnit() {
@@ -42,27 +37,51 @@ public class OilCreditDto extends BaseDto<OilCredit> {
         this.unit = unit;
     }
 
-    public String getDestinataire() {
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public UUID getOil_type() {
+        return oil_type;
+    }
+
+    public void setOil_type(UUID oil_type) {
+        this.oil_type = oil_type;
+    }
+
+    public UUID getDestinataire() {
         return destinataire;
     }
 
-    public void setDestinataire(String destinataire) {
+    public void setDestinataire(UUID destinataire) {
         this.destinataire = destinataire;
     }
 
-    public LocalDate getCredit_date() {
-        return credit_date;
+    public UUID getTransaction_id_in() {
+        return transaction_id_in;
     }
 
-    public void setCredit_date(LocalDate credit_date) {
-        this.credit_date = credit_date;
+    public void setTransaction_id_in(UUID transaction_id_in) {
+        this.transaction_id_in = transaction_id_in;
     }
 
-    public String getCiterne_pile() {
-        return citerne_pile;
+    public UUID getTransaction_id_out() {
+        return transaction_id_out;
     }
 
-    public void setCiterne_pile(String citerne_pile) {
-        this.citerne_pile = citerne_pile;
+    public void setTransaction_id_out(UUID transaction_id_out) {
+        this.transaction_id_out = transaction_id_out;
+    }
+
+    public CreditState getCreditState() {
+        return creditState;
+    }
+
+    public void setCreditState(CreditState creditState) {
+        this.creditState = creditState;
     }
 }

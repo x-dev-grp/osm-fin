@@ -79,6 +79,11 @@
             <groupId>com.xdev</groupId>
             <artifactId>xdev-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.xdev</groupId>
+            <artifactId>comunicator</artifactId>
+
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

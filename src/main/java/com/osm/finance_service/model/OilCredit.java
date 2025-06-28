@@ -1,5 +1,6 @@
 package com.osm.finance_service.model;
 
+import com.osm.finance_service.ennum.CreditState;
 import com.osm.finance_service.ennum.UnitType;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.Entity;
@@ -8,42 +9,41 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "oil_credits")
 public class OilCredit extends BaseEntity implements Serializable {
 
-
-    private LocalDate credit_date;
-
-    private String citerne_pile;
-
     private String emballage;
 
-    private BigDecimal quantity;
+    private Double quantity;
 
     @Enumerated(EnumType.STRING)
     private UnitType unit;
+    private UUID oil_type;
+    private UUID destinataire;
+    private UUID transaction_id_in;
+    private UUID transaction_id_out;
+    @Enumerated(EnumType.STRING)
+    private CreditState creditState = CreditState.PENDING;
 
-    private String destinataire;
-
-    public LocalDate getCredit_date() {
-        return credit_date;
+    public UUID getTransaction_id_in() {
+        return transaction_id_in;
     }
 
-    public void setCredit_date(LocalDate credit_date) {
-        this.credit_date = credit_date;
+    public void setTransaction_id_in(UUID transaction_id_in) {
+        this.transaction_id_in = transaction_id_in;
     }
 
-    public String getCiterne_pile() {
-        return citerne_pile;
+    public UUID getTransaction_id_out() {
+        return transaction_id_out;
     }
 
-    public void setCiterne_pile(String citerne_pile) {
-        this.citerne_pile = citerne_pile;
+    public void setTransaction_id_out(UUID transaction_id_out) {
+        this.transaction_id_out = transaction_id_out;
     }
+
 
     public String getEmballage() {
         return emballage;
@@ -53,11 +53,11 @@ public class OilCredit extends BaseEntity implements Serializable {
         this.emballage = emballage;
     }
 
-    public BigDecimal getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -69,11 +69,28 @@ public class OilCredit extends BaseEntity implements Serializable {
         this.unit = unit;
     }
 
-    public String getDestinataire() {
+    public UUID getOil_type() {
+        return oil_type;
+    }
+
+    public void setOil_type(UUID oil_type) {
+        this.oil_type = oil_type;
+    }
+
+    public UUID getDestinataire() {
         return destinataire;
     }
 
-    public void setDestinataire(String destinataire) {
+    public void setDestinataire(UUID destinataire) {
         this.destinataire = destinataire;
+    }
+
+
+    public CreditState getCreditState() {
+        return creditState;
+    }
+
+    public void setCreditState(CreditState creditState) {
+        this.creditState = creditState;
     }
 }
