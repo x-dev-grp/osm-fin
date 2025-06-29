@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"com.xdev.communicator", "com.osm.finance_service"})
-@ComponentScan(basePackages = {"com.xdev", "com.xdev.xdevbase","com.xdev.communicator", "com.osm.finance_service"})
+@EnableFeignClients(basePackages = {"com.xdev.communicator", "com.osm.finance_service","com.xdev","com.xdev.xdevsecurity"})
+@ComponentScan(basePackages = {"com.xdev", "com.xdev.xdevsecurity","com.xdev.xdevbase","com.xdev.communicator", "com.osm.finance_service"})
 @EnableJpaRepositories(basePackages = {"com.xdev", "com.xdev.xdevbase", "com.osm.finance_service"}, repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
 public class FinanceServiceApplication {
 
