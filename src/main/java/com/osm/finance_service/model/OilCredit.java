@@ -3,10 +3,7 @@ package com.osm.finance_service.model;
 import com.osm.finance_service.ennum.CreditState;
 import com.osm.finance_service.ennum.UnitType;
 import com.xdev.xdevbase.entities.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -21,7 +18,8 @@ public class OilCredit extends BaseEntity implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private UnitType unit;
-    private UUID oil_type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private BaseType oil_type;
     private UUID destinataire;
     private UUID transaction_id_in;
     private UUID transaction_id_out;
@@ -69,11 +67,11 @@ public class OilCredit extends BaseEntity implements Serializable {
         this.unit = unit;
     }
 
-    public UUID getOil_type() {
+    public BaseType getOil_type() {
         return oil_type;
     }
 
-    public void setOil_type(UUID oil_type) {
+    public void setOil_type(BaseType oil_type) {
         this.oil_type = oil_type;
     }
 

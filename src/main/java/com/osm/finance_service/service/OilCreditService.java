@@ -4,9 +4,11 @@ package com.osm.finance_service.service;
 import com.osm.finance_service.dto.OilCreditDto;
 import com.osm.finance_service.ennum.CreditState;
 import com.osm.finance_service.feignClients.services.OilTransactionFeignService;
+import com.osm.finance_service.model.BaseType;
 import com.osm.finance_service.model.OilCredit;
 import com.osm.finance_service.repo.OilCreditRepository;
 
+import com.xdev.communicator.models.common.dtos.BaseTypeDto;
 import com.xdev.communicator.models.common.dtos.apiDTOs.ApiSingleResponse;
 import com.xdev.communicator.models.production.dto.OilTransactionDTO;
 import com.xdev.communicator.models.production.enums.TransactionState;
@@ -31,11 +33,12 @@ public class OilCreditService extends BaseServiceImpl<OilCredit, OilCreditDto, O
    
    private final OilCreditRepository oilCreditRepository;
    private final OilTransactionFeignService oilTransactionFeignService;
-   
-    public OilCreditService(BaseRepository<OilCredit> repository, ModelMapper modelMapper, OilCreditRepository oilCreditRepository, OilTransactionFeignService oilTransactionFeignService) {
+   private final BaseTypeService baseTypeService;
+    public OilCreditService(BaseRepository<OilCredit> repository, ModelMapper modelMapper, OilCreditRepository oilCreditRepository, OilTransactionFeignService oilTransactionFeignService, BaseTypeService baseTypeService) {
         super(repository, modelMapper);
         this.oilCreditRepository = oilCreditRepository;
         this.oilTransactionFeignService = oilTransactionFeignService;
+        this.baseTypeService = baseTypeService;
     }
 
     @Override
@@ -65,16 +68,19 @@ public class OilCreditService extends BaseServiceImpl<OilCredit, OilCreditDto, O
             log.error("Oil transaction creation failed: {}", response);
             throw new RuntimeException("Failed to create oil transaction");
         }
-        UUID createdId = response.getData().getId();
+        UUID createdId = response.getData().getExternalId();
         log.info("Successfully created oil transaction with ID: {}", createdId);
 
         // 4) Only now set the transaction ID and save the credit
-        request.setTransaction_id_out(createdId);
-        OilCreditDto savedCredit = super.save(request);
+        OilCredit oilCredit = modelMapper.map(request, OilCredit.class);
+        oilCredit.setTransaction_id_out(createdId);
+        BaseType baseType=baseTypeService.handelBaseType(request.getOil_type());
+        oilCredit.setOil_type(baseType);
+        oilCredit = repository.save(oilCredit);
         log.info("Saved oil credit with ID: {} and transaction ID: {}",
-                savedCredit.getId(), createdId);
+                oilCredit.getId(), createdId);
 
-        return savedCredit;
+        return modelMapper.map(oilCredit, OilCreditDto.class);
     }
 
 
