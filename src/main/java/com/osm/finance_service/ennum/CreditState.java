@@ -10,7 +10,7 @@ public enum CreditState {
     /**
      * The approved credit has been applied to the storage unit/account.
      */
-    APPLIED,
+    APPROVED,
 
     /**
      * The credit has been fully settled/closed (e.g. invoiced or paid off).

@@ -87,7 +87,7 @@ public class OilCreditService extends BaseServiceImpl<OilCredit, OilCreditDto, O
     public void approuveOilCredit(UUID transactionId) {
         OilCredit oilCredit = oilCreditRepository.findByTransactionIdOut(transactionId).orElse(null);
         if (Objects.nonNull(oilCredit)) {
-            oilCredit.setCreditState(CreditState.APPLIED);
+            oilCredit.setCreditState(CreditState.APPROVED);
             oilCreditRepository.save(oilCredit);
             log.info("Approved oil credit for transaction ID: {}", transactionId);
         } else {

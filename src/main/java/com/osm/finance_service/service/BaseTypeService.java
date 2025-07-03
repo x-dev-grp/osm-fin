@@ -29,6 +29,7 @@ public class BaseTypeService {
             }
         }
        BaseType  baseType=modelMapper.map(dto, BaseType.class);
+        baseType.setId(null);
        return typeRepository.save(baseType);
    }
 
