@@ -2,8 +2,9 @@ package com.osm.finance_service.model;
 
 
 import com.xdev.xdevbase.entities.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
@@ -14,20 +15,34 @@ import java.time.LocalDate;
 public class Expense extends BaseEntity implements Serializable {
 
 
-    @Column(name = "invoice_ref")
     private String invoiceRef;
 
-    @Column(name = "purchase_nature", nullable = false)
     private String purchaseNature;
 
-    @Column(name = "object_desc")
     private String object;
 
-    @Column(name = "expense_date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "amount", nullable = false)
     private Double amount;
+
+    private String vendor;
+
+    private String category;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
+    @Enumerated(EnumType.STRING)
+    private ExpenseStatus status;
+
+    private String notes;
+
+    private String receiptNumber;
+
+
+    private Boolean approved;
+
+    private LocalDate approvalDate;
 
     public String getInvoiceRef() {
         return invoiceRef;
@@ -67,5 +82,69 @@ public class Expense extends BaseEntity implements Serializable {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public ExpenseStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ExpenseStatus status) {
+        this.status = status;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getReceiptNumber() {
+        return receiptNumber;
+    }
+
+    public void setReceiptNumber(String receiptNumber) {
+        this.receiptNumber = receiptNumber;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public LocalDate getApprovalDate() {
+        return approvalDate;
+    }
+
+    public void setApprovalDate(LocalDate approvalDate) {
+        this.approvalDate = approvalDate;
     }
 }
