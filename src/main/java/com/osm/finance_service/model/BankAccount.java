@@ -35,6 +35,13 @@ public class BankAccount extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private Boolean active;
 
+    // ==================== RELATIONSHIPS ====================
+    
+    /**
+     * Customer associated with this bank account
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;
 
     public String getRib() {
         return rib;
@@ -99,5 +106,13 @@ public class BankAccount extends BaseEntity implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
