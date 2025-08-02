@@ -41,7 +41,7 @@ public class OilCreditController extends BaseControllerImpl<OilCredit, OilCredit
 
      @Override
      protected String getResourceName() {
-         return "OilCredit".toUpperCase();
+         return "OILCREDIT";
      }
 
 }

@@ -23,7 +23,7 @@ public class BankAccountController extends BaseControllerImpl<BankAccount, BankA
 
     @Override
     protected String getResourceName() {
-        return "BankAccount".toUpperCase();
+        return "BANKACCOUNT" ;
     }
 
 

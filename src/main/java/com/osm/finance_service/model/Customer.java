@@ -19,17 +19,17 @@ public class Customer extends BaseEntity implements Serializable {
     /**
      * Customer code/identifier
      */
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true,  length = 50)
     private String matriculeFiscal;
-    @Column(unique = true, nullable = false, length = 8)
+    @Column(unique = true,  length = 8)
     private String numCIN;
 
     /**
      * Customer name
      */
-    @Column(nullable = false, length = 200)
+    @Column( length = 200)
     private String customerName;
-    @Column(nullable = false, length = 200)
+    @Column( length = 200)
     private String customerLastName;
 
 

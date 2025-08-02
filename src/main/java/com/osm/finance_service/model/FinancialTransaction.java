@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "financial_transactions")
-public class FinancialTransaction extends BaseEntity implements Serializable {
+public class FinancialTransaction extends BaseEntity {
 
     // ==================== CORE TRANSACTION FIELDS ====================
 

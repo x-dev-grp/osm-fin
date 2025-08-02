@@ -7,8 +7,6 @@ import com.osm.finance_service.feignClients.services.OilTransactionFeignService;
 import com.osm.finance_service.model.BaseType;
 import com.osm.finance_service.model.OilCredit;
 import com.osm.finance_service.repo.OilCreditRepository;
-
-import com.xdev.communicator.models.common.dtos.BaseTypeDto;
 import com.xdev.communicator.models.common.dtos.apiDTOs.ApiSingleResponse;
 import com.xdev.communicator.models.production.dto.OilTransactionDTO;
 import com.xdev.communicator.models.production.enums.TransactionState;
@@ -18,12 +16,11 @@ import com.xdev.xdevbase.services.impl.BaseServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 
