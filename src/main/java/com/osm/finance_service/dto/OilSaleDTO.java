@@ -1,5 +1,6 @@
 package com.osm.finance_service.dto;
 
+import com.osm.finance_service.ennum.QualityGrades;
 import com.osm.finance_service.ennum.SaleStatus;
 import com.osm.finance_service.model.OilSale;
 import com.xdev.communicator.models.common.dtos.BaseTypeDto;
@@ -57,6 +58,7 @@ public class OilSaleDTO extends BaseDto<OilSale> {
     private String deliveryAddress;
     private String deliveryNotes;
     private boolean paid = false;
+    private QualityGrades qualityGrade;
 
     // ==================== GETTERS AND SETTERS ====================
 
@@ -236,6 +238,14 @@ public class OilSaleDTO extends BaseDto<OilSale> {
 
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public QualityGrades getQualityGrade() {
+        return qualityGrade;
+    }
+
+    public void setQualityGrade(QualityGrades qualityGrade) {
+        this.qualityGrade = qualityGrade;
     }
 
     /**

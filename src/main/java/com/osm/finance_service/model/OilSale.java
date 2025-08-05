@@ -1,5 +1,6 @@
 package com.osm.finance_service.model;
 
+import com.osm.finance_service.ennum.QualityGrades;
 import com.osm.finance_service.ennum.SaleStatus;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
@@ -24,6 +25,17 @@ public class OilSale extends BaseEntity implements Serializable {
      */
     @Column(unique = true,  length = 50)
     private String invoiceNumber;
+
+    @Enumerated(EnumType.STRING)
+    private QualityGrades qualityGrade;
+
+    public QualityGrades getQualityGrade() {
+        return qualityGrade;
+    }
+
+    public void setQualityGrade(QualityGrades qualityGrade) {
+        this.qualityGrade = qualityGrade;
+    }
 
     /**
      * Sale status (PENDING, CONFIRMED, DELIVERED, CANCELLED)
