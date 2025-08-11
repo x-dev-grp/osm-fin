@@ -8,9 +8,10 @@ import com.osm.finance_service.model.BaseType;
 import com.osm.finance_service.model.OilCredit;
 import com.osm.finance_service.repo.OilCreditRepository;
 import com.xdev.communicator.models.common.dtos.apiDTOs.ApiSingleResponse;
-import com.xdev.communicator.models.production.dto.OilTransactionDTO;
-import com.xdev.communicator.models.production.enums.TransactionState;
-import com.xdev.communicator.models.production.enums.TransactionType;
+
+import com.xdev.communicator.models.shared.dto.OilTransactionDTO;
+import com.xdev.communicator.models.shared.enums.TransactionState;
+import com.xdev.communicator.models.shared.enums.TransactionType;
 import com.xdev.xdevbase.repos.BaseRepository;
 import com.xdev.xdevbase.services.impl.BaseServiceImpl;
 import org.modelmapper.ModelMapper;

@@ -95,17 +95,7 @@ public class Customer extends BaseEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private CustomerCategory category;
 
-    /**
-     * Financial transactions associated with this customer
-     */
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FinancialTransaction> transactions;
 
-    /**
-     * Bank accounts associated with this customer
-     */
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BankAccount> bankAccounts;
 
     // ==================== METADATA FIELDS ====================
 
@@ -221,21 +211,7 @@ public class Customer extends BaseEntity implements Serializable {
         this.category = category;
     }
 
-    public List<FinancialTransaction> getTransactions() {
-        return transactions;
-    }
 
-    public void setTransactions(List<FinancialTransaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public List<BankAccount> getBankAccounts() {
-        return bankAccounts;
-    }
-
-    public void setBankAccounts(List<BankAccount> bankAccounts) {
-        this.bankAccounts = bankAccounts;
-    }
 
     public String getNotes() {
         return notes;

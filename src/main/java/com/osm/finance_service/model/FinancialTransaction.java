@@ -1,15 +1,14 @@
 package com.osm.finance_service.model;
 
-import com.osm.finance_service.ennum.Currency;
-import com.osm.finance_service.ennum.TransactionDirection;
-import com.osm.finance_service.ennum.TransactionType;
+import com.xdev.communicator.models.shared.enums.Currency;
+import com.xdev.communicator.models.shared.enums.PaymentMethod;
+import com.xdev.communicator.models.shared.enums.TransactionDirection;
+import com.xdev.communicator.models.shared.enums.TransactionType;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Universal Financial Transaction Model
@@ -19,123 +18,99 @@ import java.util.UUID;
 @Table(name = "financial_transactions")
 public class FinancialTransaction extends BaseEntity {
 
-    // ==================== CORE TRANSACTION FIELDS ====================
-
 
     /**
-     * Transaction type (PAYMENT, EXPENSE, CREDIT, DEBIT, TRANSFER, etc.)
+     * PAYMENT, EXPENSE, CREDIT, DEBIT, TRANSFER, etc.
      */
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private TransactionType transactionType;
 
-
-    /**
-     * Transaction direction (INBOUND, OUTBOUND, INTERNAL)
-     */
+    /** INBOUND, OUTBOUND, INTERNAL */
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private TransactionDirection direction;
 
     // ==================== AMOUNT & CURRENCY FIELDS ====================
 
-    /**
-     * Primary amount in base currency
-     */
-    @Column(nullable = false, precision = 19, scale = 4)
+    /** Primary amount in base currency */
     private BigDecimal amount;
 
-    /**
-     * Currency code (MAD, USD, EUR, etc.)
-     */
+    /** Currency code (TND, USD, EUR, etc.) */
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
-
     // ==================== PAYMENT METHOD FIELDS ====================
 
-    /**
-     * Payment method used
-     */
+    /** CASH, CHEQUE, TRANSFER, etc. */
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
-    /**
-     * Bank account used (if applicable)
-     */
+    /** Bank account used (if applicable) */
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bank_account_id")
     private BankAccount bankAccount;
 
     /**
-     * Check number (if payment method is CHECK)
+     * Check number (if paymentMethod == CHEQUE)
      */
+    @Column(name = "check_number", length = 50)
     private String checkNumber;
 
-    /**
-     * Transaction ID from external system (bank transfer, etc.)
-     */
+    /** External system reference (e.g. for bank transfers) */
     private String externalTransactionId;
-
-
+    // ==================== RELATIONSHIPS ====================
+    private Double paidAmount;
+    private Double unpaidAmount;
     /**
-     * Related delivery ID (for delivery-based transactions)
+     * Related delivery lot number
      */
+    @Column(name = "lot_number", length = 50)
     private String lotNumber;
-
-    /**
-     * Related supplier ID
-     */
+    /** Supplier (if this is a supplier payment or credit) */
     @ManyToOne(fetch = FetchType.LAZY)
-    private Supplier supplierId;
-
-    /**
-     * Related customer
-     */
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
+    /** Customer (if this is a customer payment or sale) */
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
-
+    /** Expense record (if type == EXPENSE) */
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "expense_id")
     private Expense expense;
+    /** When the transaction was made */
+    private LocalDateTime transactionDate;
+    /** Has this been approved? */
+    private Boolean approved = false;
+    /** When it was approved */
+    private LocalDateTime approvalDate;
+    /** Who approved it */
+    private String approvedBy;
 
-    // ==================== METADATA FIELDS ====================
+    // ==================== OPTIONAL METADATA ====================
 
-    /**
-     * Transaction description
-     */
-    @Column(length = 100)
     private String description;
 
-    /**
-     * Invoice reference (if applicable)
-     */
     private String invoiceReference;
 
-    /**
-     * Receipt reference (if applicable)
-     */
     private String receiptReference;
 
-    /**
-     * Transaction date
-     */
-    @Column(nullable = false)
-    private LocalDateTime transactionDate;
+    // ==================== TIMING & APPROVAL ====================
 
-    /**
-     * Approval status
-     */
-    private Boolean approved = false;
+    public Double getPaidAmount() {
+        return paidAmount;
+    }
 
-    /**
-     * Approval date
-     */
-    private LocalDateTime approvalDate;
+    public void setPaidAmount(Double paidAmount) {
+        this.paidAmount = paidAmount;
+    }
 
-    /**
-     * Approved by user ID
-     */
-    private String approvedBy;
+    public Double getUnpaidAmount() {
+        return unpaidAmount;
+    }
+
+    public void setUnpaidAmount(Double unpaidAmount) {
+        this.unpaidAmount = unpaidAmount;
+    }
 
     @Override
     public String toString() {
@@ -147,9 +122,8 @@ public class FinancialTransaction extends BaseEntity {
                 ", paymentMethod=" + paymentMethod +
                 ", bankAccount=" + bankAccount +
                 ", checkNumber='" + checkNumber + '\'' +
-                ", externalTransactionId='" + externalTransactionId + '\'' +
                 ", lotNumber='" + lotNumber + '\'' +
-                ", supplierId=" + supplierId +
+                ", supplier=" + supplier +
                 ", customer=" + customer +
                 ", expense=" + expense +
                 ", description='" + description + '\'' +
@@ -234,12 +208,12 @@ public class FinancialTransaction extends BaseEntity {
         this.lotNumber = lotNumber;
     }
 
-    public Supplier getSupplierId() {
-        return supplierId;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setSupplierId(Supplier supplierId) {
-        this.supplierId = supplierId;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public Customer getCustomer() {

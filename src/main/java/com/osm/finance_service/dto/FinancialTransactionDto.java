@@ -4,7 +4,7 @@ import com.osm.finance_service.ennum.Currency;
 import com.osm.finance_service.ennum.TransactionDirection;
 import com.osm.finance_service.ennum.TransactionType;
 import com.osm.finance_service.model.FinancialTransaction;
-import com.osm.finance_service.model.PaymentMethod;
+import com.osm.finance_service.ennum.PaymentMethod;
 import com.osm.finance_service.model.Supplier;
 import com.xdev.xdevbase.dtos.BaseDto;
 
@@ -20,7 +20,7 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
     private BankAccountDto bankAccount;
     private String checkNumber;
     private String lotNumber;
-    private Supplier supplierId;
+    private Supplier supplier;
     private CustomerDto customer;
     private ExpenseDto expense;
     private String description;
@@ -30,6 +30,9 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
     private Boolean approved;
     private LocalDateTime approvalDate;
     private String approvedBy;
+    private String externalTransactionId;
+    private Double paidAmount;
+    private Double unpaidAmount;
 
     @Override
     public String toString() {
@@ -42,7 +45,7 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
                 ", bankAccount=" + bankAccount +
                 ", checkNumber='" + checkNumber + '\'' +
                 ", lotNumber='" + lotNumber + '\'' +
-                ", supplierId=" + supplierId +
+                ", supplier=" + supplier +
                 ", customer=" + customer +
                 ", expense=" + expense +
                 ", description='" + description + '\'' +
@@ -119,12 +122,12 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
         this.lotNumber = lotNumber;
     }
 
-    public Supplier getSupplierId() {
-        return supplierId;
+    public Supplier getsupplier() {
+        return supplier;
     }
 
-    public void setSupplierId(Supplier supplierId) {
-        this.supplierId = supplierId;
+    public void setsupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public CustomerDto getCustomer() {
@@ -197,5 +200,29 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
 
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    public String getExternalTransactionId() {
+        return externalTransactionId;
+    }
+
+    public void setExternalTransactionId(String externalTransactionId) {
+        this.externalTransactionId = externalTransactionId;
+    }
+
+    public Double getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(Double paidAmount) {
+        this.paidAmount = paidAmount;
+    }
+
+    public Double getUnpaidAmount() {
+        return unpaidAmount;
+    }
+
+    public void setUnpaidAmount(Double unpaidAmount) {
+        this.unpaidAmount = unpaidAmount;
     }
 }

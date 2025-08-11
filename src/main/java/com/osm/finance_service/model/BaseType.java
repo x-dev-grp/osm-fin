@@ -1,7 +1,7 @@
 package com.osm.finance_service.model;
 
- import com.xdev.communicator.models.production.enums.TypeCategory;
- import com.xdev.xdevbase.entities.BaseEntity;
+  import com.xdev.communicator.models.shared.enums.TypeCategory;
+  import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.Entity;
 
 @Entity

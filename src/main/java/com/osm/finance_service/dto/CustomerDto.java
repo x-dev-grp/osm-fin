@@ -21,7 +21,6 @@ public class CustomerDto extends BaseDto<Customer> {
     private   String postalCode;
     private   String country;
     private   CustomerCategory category;
-    private   List<FinancialTransactionDto> transactions;
     private   List<BankAccountDto> bankAccounts;
     private   String notes;
 
@@ -128,14 +127,6 @@ public class CustomerDto extends BaseDto<Customer> {
 
     public void setCategory(CustomerCategory category) {
         this.category = category;
-    }
-
-    public List<FinancialTransactionDto> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<FinancialTransactionDto> transactions) {
-        this.transactions = transactions;
     }
 
     public List<BankAccountDto> getBankAccounts() {

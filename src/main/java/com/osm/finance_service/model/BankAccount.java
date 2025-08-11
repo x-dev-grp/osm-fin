@@ -5,6 +5,7 @@ import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "bank_account")
@@ -34,14 +35,6 @@ public class BankAccount extends BaseEntity implements Serializable {
 
     @Column(nullable = false)
     private Boolean active;
-
-    // ==================== RELATIONSHIPS ====================
-    
-    /**
-     * Customer associated with this bank account
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Customer customer;
 
     public String getRib() {
         return rib;
@@ -108,11 +101,5 @@ public class BankAccount extends BaseEntity implements Serializable {
         this.active = active;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 }

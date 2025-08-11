@@ -1,8 +1,8 @@
 package com.osm.finance_service.dto;
 
 import com.osm.finance_service.model.Expense;
-import com.osm.finance_service.model.PaymentMethod;
-import com.osm.finance_service.model.ExpenseStatus;
+import com.osm.finance_service.ennum.PaymentMethod;
+import com.osm.finance_service.ennum.ExpenseStatus;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 import java.time.LocalDate;
