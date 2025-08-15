@@ -1,9 +1,9 @@
 package com.osm.finance_service.service;
 
-import com.osm.finance_service.dto.FinancialTransactionDto;
-import com.osm.finance_service.ennum.Currency;
-import com.osm.finance_service.ennum.TransactionDirection;
-import com.osm.finance_service.ennum.TransactionType;
+ import com.osm.finance_service.dto.FinancialTransactionDto;
+ import com.xdev.communicator.models.shared.enums.Currency;
+import com.xdev.communicator.models.shared.enums.TransactionDirection;
+import com.xdev.communicator.models.shared.enums.TransactionType;
 import com.osm.finance_service.model.Customer;
 import com.osm.finance_service.model.FinancialTransaction;
 import com.osm.finance_service.repo.FinancialTransactionRepository;

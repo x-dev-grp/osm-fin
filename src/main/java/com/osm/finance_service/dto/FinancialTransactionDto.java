@@ -20,7 +20,7 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
     private BankAccountDto bankAccount;
     private String checkNumber;
     private String lotNumber;
-    private Supplier supplier;
+    private SupplierDto supplier;
     private CustomerDto customer;
     private ExpenseDto expense;
     private String description;
@@ -122,11 +122,11 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
         this.lotNumber = lotNumber;
     }
 
-    public Supplier getsupplier() {
+    public SupplierDto getsupplier() {
         return supplier;
     }
 
-    public void setsupplier(Supplier supplier) {
+    public void setsupplier(SupplierDto supplier) {
         this.supplier = supplier;
     }
 
