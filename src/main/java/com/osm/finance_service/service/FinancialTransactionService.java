@@ -4,8 +4,7 @@ package com.osm.finance_service.service;
  import com.xdev.communicator.models.shared.enums.Currency;
 import com.xdev.communicator.models.shared.enums.TransactionDirection;
 import com.xdev.communicator.models.shared.enums.TransactionType;
-import com.osm.finance_service.model.Customer;
-import com.osm.finance_service.model.FinancialTransaction;
+ import com.osm.finance_service.model.FinancialTransaction;
 import com.osm.finance_service.repo.FinancialTransactionRepository;
 import com.xdev.xdevbase.models.Action;
 import com.xdev.xdevbase.repos.BaseRepository;
@@ -25,12 +24,10 @@ public class FinancialTransactionService extends BaseServiceImpl<FinancialTransa
     private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.BASIC_ISO_DATE;
 
     private final FinancialTransactionRepository financialTransactionRepository;
-   private final CustomerService customerService;
-    public FinancialTransactionService(BaseRepository<FinancialTransaction> repository, ModelMapper modelMapper, FinancialTransactionRepository financialTransactionRepository, CustomerService customerService) {
+    public FinancialTransactionService(BaseRepository<FinancialTransaction> repository, ModelMapper modelMapper, FinancialTransactionRepository financialTransactionRepository) {
         super(repository, modelMapper);
         this.financialTransactionRepository = financialTransactionRepository;
-        this.customerService = customerService;
-    }
+     }
 
 
     @Override
@@ -45,13 +42,7 @@ public class FinancialTransactionService extends BaseServiceImpl<FinancialTransa
         // --- 1) Map → entity & defaults ---
         FinancialTransaction tx = modelMapper.map(request, FinancialTransaction.class);
 
-        if( request.getCustomer()!=null && request.getCustomer().getExternalId() != null) {
-            Customer customer = customerService.handelCustomer(request.getCustomer());
-            tx.setCustomer(customer);
-        } else {
-            tx.setCustomer(null);
 
-        }
         if (tx.getTransactionDate() == null) {
             tx.setTransactionDate(LocalDateTime.now());
         }

@@ -1,5 +1,6 @@
 package com.osm.finance_service.model;
 
+import com.xdev.communicator.models.shared.enums.PartnerCategory;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
@@ -18,6 +19,9 @@ public class SupplierInfo extends BaseEntity {
     private String rib;
     private String bankName;
 
+    private String matriculeFiscal;
+    @Enumerated(EnumType.STRING)
+    private PartnerCategory category;
     @ManyToOne(fetch = FetchType.EAGER)
     private BaseType region;
     // Calculated fields (not persisted)

@@ -69,10 +69,7 @@ public class FinancialTransaction extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
-    /** Customer (if this is a customer payment or sale) */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+
     /** Expense record (if type == EXPENSE) */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expense_id")
@@ -124,7 +121,6 @@ public class FinancialTransaction extends BaseEntity {
                 ", checkNumber='" + checkNumber + '\'' +
                 ", lotNumber='" + lotNumber + '\'' +
                 ", supplier=" + supplier +
-                ", customer=" + customer +
                 ", expense=" + expense +
                 ", description='" + description + '\'' +
                 ", invoiceReference='" + invoiceReference + '\'' +
@@ -216,13 +212,6 @@ public class FinancialTransaction extends BaseEntity {
         this.supplier = supplier;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     public Expense getExpense() {
         return expense;
