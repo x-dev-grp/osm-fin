@@ -23,6 +23,6 @@ public class ExpensesController extends BaseControllerImpl<Expense, ExpenseDto, 
 
     @Override
     protected String getResourceName() {
-        return "EXPENSE";
+        return "Expense".toUpperCase();
     }
 }

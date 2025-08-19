@@ -71,6 +71,8 @@ eureka:
 
 server:
   port: 8085
+  max-http-request-header-size: 32KB      # Boot 3.x+
+
 
 logging:
   level:
