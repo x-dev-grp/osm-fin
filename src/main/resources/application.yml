@@ -1,117 +1,114 @@
 spring:
   application:
-    name: financeservice
+    name: ${SPRING_APP_NAME:financeservice}
 
   main:
-    banner-mode: console
+    banner-mode: ${BANNER_MODE:console}
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/osmfinance
-    username: postgres
-    password: root
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/osmfinance}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:root}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: false
+      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:false}
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   data:
     jdbc:
       dialect: postgresql
+
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: xdevgroupe@gmail.com
-    password: aqxe aofi yxzn qrvy
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USER:xdevgroupe@gmail.com}
+    password: ${MAIL_PASS:changeme}
     protocol: smtp
     default-encoding: UTF-8
     properties:
       mail:
         smtp:
-          auth: true
+          auth: ${MAIL_SMTP_AUTH:true}
           starttls:
-            enable: true
-          timeout: 5000
-          connectiontimeout: 5000
+            enable: ${MAIL_STARTTLS:true}
+          timeout: ${MAIL_TIMEOUT:5000}
+          connectiontimeout: ${MAIL_CONN_TIMEOUT:5000}
       default-encoding: UTF-8
       messages:
-        cache-duration: PT1S
+        cache-duration: ${MAIL_MESSAGES_CACHE_DURATION:PT1S}
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8088
-          jwk-set-uri: http://localhost:8088/oauth2/jwks
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8088}
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8088/oauth2/jwks}
+
   cloud:
     openfeign:
       client:
         config:
           default:
-            connectTimeout: 10000
-            readTimeout: 60000
-            loggerLevel: basic
+            connectTimeout: ${FEIGN_CONNECT_TIMEOUT:10000}
+            readTimeout: ${FEIGN_READ_TIMEOUT:60000}
+            loggerLevel: ${FEIGN_LOGGER_LEVEL:basic}
+
 eureka:
   client:
-    # pull the registry every 5s (default 30s)
-    registry-fetch-interval-seconds: 5
-    # don’t block startup waiting for registry sync
-    wait-for-registry-sync: false
+    registry-fetch-interval-seconds: ${EUREKA_REGISTRY_FETCH_INTERVAL_SECONDS:5}
+    wait-for-registry-sync: ${EUREKA_WAIT_FOR_REGISTRY_SYNC:false}
     service-url:
       defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: ${EUREKA_PREFER_IP_ADDRESS:true}
     hostname: ${HOSTNAME:localhost}
-    # heartbeat every 5s (default 30s)
-    lease-renewal-interval-in-seconds: 5
-    # expire missing instances after ~15s (default 90s)
-    lease-expiration-duration-in-seconds: 15
-
-
+    lease-renewal-interval-in-seconds: ${EUREKA_LEASE_RENEWAL_INTERVAL:5}
+    lease-expiration-duration-in-seconds: ${EUREKA_LEASE_EXPIRATION_DURATION:15}
 
 server:
-  port: 8085
-  max-http-request-header-size: 32KB      # Boot 3.x+
-
+  port: ${SERVER_PORT:8085}
+  max-http-request-header-size: ${MAX_HTTP_REQUEST_HEADER_SIZE:32KB}  # Boot 3.x+
 
 logging:
   level:
-    com.osm.finance_service: DEBUG
-    com.xdev: DEBUG
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
-    org.hibernate.SQL: WARN
-    org.hibernate.type.descriptor.sql.BasicBinder: WARN
-    feign: DEBUG
-    io.github.resilience4j: DEBUG
-    com.netflix.discovery: WARN
+    com.osm.finance_service: ${LOG_LEVEL_OSM:DEBUG}
+    com.xdev: ${LOG_LEVEL_XDEV:DEBUG}
+    org.springframework.security: ${LOG_LEVEL_SECURITY:DEBUG}
+    org.springframework.web: ${LOG_LEVEL_WEB:DEBUG}
+    org.hibernate.SQL: ${LOG_LEVEL_HIBERNATE_SQL:WARN}
+    org.hibernate.type.descriptor.sql.BasicBinder: ${LOG_LEVEL_HIBERNATE_BINDER:WARN}
+    feign: ${LOG_LEVEL_FEIGN:DEBUG}
+    io.github.resilience4j: ${LOG_LEVEL_RESILIENCE4J:DEBUG}
+    com.netflix.discovery: ${LOG_LEVEL_EUREKA:WARN}
 
 springdoc:
   api-docs:
-    path: /v3/api-docs
+    path: ${SPRINGDOC_API_DOCS_PATH:/v3/api-docs}
   swagger-ui:
-    path: /swagger-ui.html
+    path: ${SPRINGDOC_SWAGGER_UI_PATH:/swagger-ui.html}
 
-
-# Resilience4j Configuration
+# Resilience4j (parameterized via env)
 resilience4j:
   circuitbreaker:
     instances:
       genericService:
-        register-health-indicator: true
-        failure-rate-threshold: 50
-        minimum-number-of-calls: 5
-        automatic-transition-from-open-to-half-open-enabled: true
-        wait-duration-in-open-state: 30s
-        permitted-number-of-calls-in-half-open-state: 3
-        sliding-window-size: 10
-        sliding-window-type: count_based
+        register-health-indicator: ${CB_REGISTER_HEALTH_INDICATOR:true}
+        failure-rate-threshold: ${CB_FAILURE_RATE_THRESHOLD:50}
+        minimum-number-of-calls: ${CB_MIN_CALLS:5}
+        automatic-transition-from-open-to-half-open-enabled: ${CB_AUTO_TRANSITION:true}
+        wait-duration-in-open-state: ${CB_OPEN_STATE_WAIT:30s}
+        permitted-number-of-calls-in-half-open-state: ${CB_PERMITTED_CALLS_HALF_OPEN:3}
+        sliding-window-size: ${CB_SLIDING_WINDOW_SIZE:10}
+        sliding-window-type: ${CB_SLIDING_WINDOW_TYPE:count_based}
 
   retry:
     instances:
       genericService:
-        max-attempts: 3
-        wait-duration: 2s
+        max-attempts: ${RETRY_MAX_ATTEMPTS:3}
+        wait-duration: ${RETRY_WAIT_DURATION:2s}
         retry-exceptions:
           - java.net.ConnectException
           - java.net.SocketTimeoutException
@@ -120,5 +117,5 @@ resilience4j:
   timelimiter:
     instances:
       genericService:
-        timeout-duration: 70s
-        cancel-running-future: true
+        timeout-duration: ${TL_TIMEOUT_DURATION:70s}
+        cancel-running-future: ${TL_CANCEL_RUNNING_FUTURE:true}
