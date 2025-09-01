@@ -1,5 +1,6 @@
 package com.osm.finance_service.dto;
 
+import com.osm.finance_service.ennum.ExpenseCategory;
 import com.osm.finance_service.model.Expense;
 import com.osm.finance_service.ennum.PaymentMethod;
 import com.osm.finance_service.ennum.ExpenseStatus;
@@ -16,7 +17,7 @@ public class ExpenseDto extends BaseDto<Expense> {
     private LocalDate date;
     private Double amount;
     private String vendor;
-    private String category;
+    private     ExpenseCategory category;
     private PaymentMethod paymentMethod;
     private ExpenseStatus status;
     private String notes;
@@ -68,8 +69,8 @@ public class ExpenseDto extends BaseDto<Expense> {
     public String getVendor() { return vendor; }
     public void setVendor(String vendor) { this.vendor = vendor; }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public ExpenseCategory getCategory() { return category; }
+    public void setCategory(ExpenseCategory category) { this.category = category; }
 
     public PaymentMethod getPaymentMethod() { return paymentMethod; }
     public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }

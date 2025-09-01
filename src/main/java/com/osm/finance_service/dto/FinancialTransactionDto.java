@@ -1,11 +1,11 @@
 package com.osm.finance_service.dto;
 
-import com.osm.finance_service.ennum.Currency;
-import com.osm.finance_service.ennum.TransactionDirection;
-import com.osm.finance_service.ennum.TransactionType;
+import com.xdev.communicator.models.shared.enums.TransactionDirection;
+import com.xdev.communicator.models.shared.enums.TransactionType;
 import com.osm.finance_service.model.FinancialTransaction;
-import com.osm.finance_service.ennum.PaymentMethod;
 import com.osm.finance_service.model.Supplier;
+import com.xdev.communicator.models.shared.enums.Currency;
+import com.xdev.communicator.models.shared.enums.PaymentMethod;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 import java.math.BigDecimal;

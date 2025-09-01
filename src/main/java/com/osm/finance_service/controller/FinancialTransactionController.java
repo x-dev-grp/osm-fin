@@ -3,6 +3,7 @@ package com.osm.finance_service.controller;
 import com.osm.finance_service.dto.FinancialTransactionDto;
 import com.osm.finance_service.model.FinancialTransaction;
 import com.osm.finance_service.service.FinancialTransactionService;
+import com.osm.finance_service.service.WasteFinancialService;
 import com.xdev.xdevbase.apiDTOs.ApiSingleResponse;
 import com.xdev.xdevbase.controllers.impl.BaseControllerImpl;
 import com.xdev.xdevbase.services.BaseService;
@@ -21,10 +22,15 @@ import java.math.BigDecimal;
 public class FinancialTransactionController extends BaseControllerImpl<FinancialTransaction, FinancialTransactionDto, FinancialTransactionDto> {
 
     private final FinancialTransactionService financialTransactionService;
+    private final WasteFinancialService wasteFinancialService;
 
-    public FinancialTransactionController(BaseService<FinancialTransaction, FinancialTransactionDto, FinancialTransactionDto> baseService, ModelMapper modelMapper, FinancialTransactionService financialTransactionService) {
+    public FinancialTransactionController(BaseService<FinancialTransaction, FinancialTransactionDto, FinancialTransactionDto> baseService, 
+                                         ModelMapper modelMapper, 
+                                         FinancialTransactionService financialTransactionService,
+                                         WasteFinancialService wasteFinancialService) {
         super(baseService, modelMapper);
         this.financialTransactionService = financialTransactionService;
+        this.wasteFinancialService = wasteFinancialService;
     }
 
     @PostMapping("/create")
@@ -61,6 +67,33 @@ public class FinancialTransactionController extends BaseControllerImpl<Financial
     @Override
     protected String getResourceName() {
         return "FinancialTransaction".toUpperCase();
+    }
+    
+    /**
+     * Creates a waste-specific financial transaction
+     * Takes the transaction data as-is from frontend without additional processing
+     * @param dto The financial transaction data
+     * @return Created financial transaction
+     */
+    @PostMapping("/waste")
+    public ResponseEntity<ApiSingleResponse<FinancialTransaction, FinancialTransactionDto>> createWasteTransaction(@RequestBody FinancialTransactionDto dto) {
+        OSMLogger.logMethodEntry(this.getClass(), "createWasteTransaction", dto);
+
+        try {
+            // Basic validation: amount must be > 0
+            if (dto.getAmount() == null || dto.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+                return ResponseEntity.badRequest().body(new ApiSingleResponse<>(false, "Invalid amount: must be greater than 0", null));
+            }
+            
+            // Create waste financial transaction using provided data
+            FinancialTransactionDto created = wasteFinancialService.createWasteFinancialTransaction(dto);
+
+            return ResponseEntity.ok(new ApiSingleResponse<>(true, "Waste financial transaction created successfully", created));
+
+        } catch (Exception e) {
+            OSMLogger.logException(this.getClass(), "Error creating waste financial transaction", e);
+            return ResponseEntity.internalServerError().body(new ApiSingleResponse<>(false, "Error creating waste transaction: " + e.getMessage(), null));
+        }
     }
 
 } 

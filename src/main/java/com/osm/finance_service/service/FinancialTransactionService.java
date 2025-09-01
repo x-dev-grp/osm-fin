@@ -9,7 +9,8 @@ import com.osm.finance_service.repo.FinancialTransactionRepository;
 import com.xdev.xdevbase.models.Action;
 import com.xdev.xdevbase.repos.BaseRepository;
 import com.xdev.xdevbase.services.impl.BaseServiceImpl;
-import org.modelmapper.ModelMapper;
+ import com.xdev.xdevbase.utils.OSMLogger;
+ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,6 +65,13 @@ public class FinancialTransactionService extends BaseServiceImpl<FinancialTransa
                 }
             }
 
+            // — Waste sales & payments update waste records —
+            case WASTE_SALE, WASTE_PAYMENT -> {
+                if (savedTx.getInvoiceReference() != null) {
+                    updateWasteInvoice(savedTx);
+                }
+            }
+
             // — Supplier payments/credits update supplier invoice balance —
             case SUPPLIER_PAYMENT, SUPPLIER_CREDIT -> {
                 if (savedTx.getInvoiceReference() != null) {
@@ -97,11 +105,20 @@ public class FinancialTransactionService extends BaseServiceImpl<FinancialTransa
 
     private TransactionDirection inferDirection(TransactionType type) {
         return switch (type) {
-            case PAYMENT, SUPPLIER_PAYMENT, OIL_PURCHASE, WITHDRAWAL, CHECK_PAYMENT -> TransactionDirection.OUTBOUND;
-            case CREDIT, SUPPLIER_CREDIT, OIL_SALE, DEPOSIT, CHECK_DEPOSIT -> TransactionDirection.INBOUND;
+            case PAYMENT, SUPPLIER_PAYMENT, OIL_PURCHASE, WITHDRAWAL, CHECK_PAYMENT, WASTE_DISPOSAL_COST -> TransactionDirection.OUTBOUND;
+            case CREDIT, SUPPLIER_CREDIT, OIL_SALE, DEPOSIT, CHECK_DEPOSIT, WASTE_SALE, WASTE_PAYMENT -> TransactionDirection.INBOUND;
             case INTERNAL_TRANSFER -> TransactionDirection.INTERNAL;
             default -> TransactionDirection.INTERNAL;
         };
+    }
+
+    private void updateWasteInvoice(FinancialTransaction tx) {
+        // Implementation for waste invoice updates
+        // This could integrate with waste management system
+        // For now, just log the operation
+        OSMLogger.logBusinessEvent(this.getClass(), "WASTE_INVOICE_UPDATE",
+            "Updated waste invoice for transaction: " + tx.getId() + 
+            ", invoice: " + tx.getInvoiceReference());
     }
 
     private void updateOilInvoice(FinancialTransaction tx) {

@@ -1,6 +1,7 @@
 package com.osm.finance_service.model;
 
 
+import com.osm.finance_service.ennum.ExpenseCategory;
 import com.osm.finance_service.ennum.ExpenseStatus;
 import com.osm.finance_service.ennum.PaymentMethod;
 import com.xdev.xdevbase.entities.BaseEntity;
@@ -28,8 +29,8 @@ public class Expense extends BaseEntity implements Serializable {
     private Double amount;
 
     private String vendor;
-
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private ExpenseCategory category;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
@@ -94,11 +95,11 @@ public class Expense extends BaseEntity implements Serializable {
         this.vendor = vendor;
     }
 
-    public String getCategory() {
+    public ExpenseCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ExpenseCategory category) {
         this.category = category;
     }
 
