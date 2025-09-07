@@ -25,6 +25,17 @@ public class FinancialTransaction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OperationType operationType;
 
+    public ResourceName getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(ResourceName resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    @Enumerated(EnumType.STRING)
+    private ResourceName resourceName;
+
     /** INBOUND, OUTBOUND, INTERNAL */
     @Enumerated(EnumType.STRING)
     private TransactionDirection direction;
