@@ -1,9 +1,6 @@
 package com.osm.finance_service.model;
 
-import com.xdev.communicator.models.shared.enums.Currency;
-import com.xdev.communicator.models.shared.enums.PaymentMethod;
-import com.xdev.communicator.models.shared.enums.TransactionDirection;
-import com.xdev.communicator.models.shared.enums.TransactionType;
+import com.xdev.communicator.models.shared.enums.*;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
@@ -24,6 +21,9 @@ public class FinancialTransaction extends BaseEntity {
      */
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
+
+    @Enumerated(EnumType.STRING)
+    private OperationType operationType;
 
     /** INBOUND, OUTBOUND, INTERNAL */
     @Enumerated(EnumType.STRING)
@@ -130,6 +130,14 @@ public class FinancialTransaction extends BaseEntity {
                 ", approvalDate=" + approvalDate +
                 ", approvedBy='" + approvedBy + '\'' +
                 '}';
+    }
+
+    public OperationType getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType;
     }
 
     public TransactionType getTransactionType() {

@@ -1,11 +1,8 @@
 package com.osm.finance_service.dto;
 
-import com.xdev.communicator.models.shared.enums.TransactionDirection;
-import com.xdev.communicator.models.shared.enums.TransactionType;
+import com.xdev.communicator.models.shared.enums.*;
 import com.osm.finance_service.model.FinancialTransaction;
 import com.osm.finance_service.model.Supplier;
-import com.xdev.communicator.models.shared.enums.Currency;
-import com.xdev.communicator.models.shared.enums.PaymentMethod;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 import java.math.BigDecimal;
@@ -32,6 +29,7 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
     private String externalTransactionId;
     private Double paidAmount;
     private Double unpaidAmount;
+    private OperationType operationType;
 
     @Override
     public String toString() {
@@ -215,5 +213,13 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
 
     public void setUnpaidAmount(Double unpaidAmount) {
         this.unpaidAmount = unpaidAmount;
+    }
+
+    public OperationType getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType;
     }
 }

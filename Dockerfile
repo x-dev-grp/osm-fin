@@ -1,34 +1,24 @@
-# syntax=docker/dockerfile:1.4        ## ← enable BuildKit secrets & cache
+# syntax=docker/dockerfile:1.4
 
-############################
-# ⬆️ 1. BUILD STAGE (Maven)
-############################
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+FROM maven:3.9.8-eclipse-temurin-21 AS build
 WORKDIR /app
-
-# --- 1. copy POM & pre-fetch deps (better cache hits) ---
 COPY pom.xml .
 RUN --mount=type=secret,id=maven_settings,dst=/root/.m2/settings.xml \
     --mount=type=cache,target=/root/.m2 \
-    mvn -B -s /root/.m2/settings.xml dependency:go-offline
-
-# --- 2. copy the rest of the sources & compile ---
-COPY src src
+    mvn -B -s /root/.m2/settings.xml -DskipTests dependency:go-offline
+COPY src ./src
 RUN --mount=type=secret,id=maven_settings,dst=/root/.m2/settings.xml \
     --mount=type=cache,target=/root/.m2 \
-    mvn -B -s /root/.m2/settings.xml clean package -DskipTests
+    mvn -B -s /root/.m2/settings.xml -DskipTests clean package
 
-############################
-# ⬇️ 2. RUNTIME STAGE (JRE)
-############################
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jre
 WORKDIR /app
-
-# copy the fat JAR produced in the build stage
-COPY --from=build /app/target/*.jar app.jar
-
-# tunable memory limits in containers
-ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75"
-
-EXPOSE 8084
-ENTRYPOINT ["java","-jar","app.jar"]
+RUN useradd -r -u 10001 -g root appuser
+COPY --from=build /app/target/*.jar /app/app.jar
+ARG SERVICE_PORT=8085
+ENV SERVER_PORT=${SERVICE_PORT}
+ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75" \
+    SPRING_PROFILES_ACTIVE=prod
+EXPOSE ${SERVICE_PORT}
+USER appuser
+ENTRYPOINT ["java","-jar","/app/app.jar"]
