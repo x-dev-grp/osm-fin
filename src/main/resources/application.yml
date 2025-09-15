@@ -119,3 +119,10 @@ resilience4j:
       genericService:
         timeout-duration: ${TL_TIMEOUT_DURATION:70s}
         cancel-running-future: ${TL_CANCEL_RUNNING_FUTURE:true}
+management:
+  endpoint:
+    web:
+      exposure:
+        include:*
+    health:
+      show-details: always
