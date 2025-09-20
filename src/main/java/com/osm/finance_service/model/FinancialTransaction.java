@@ -1,5 +1,6 @@
 package com.osm.finance_service.model;
 
+import com.osm.finance_service.ennum.ResourceName;
 import com.xdev.communicator.models.shared.enums.*;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
@@ -24,6 +25,17 @@ public class FinancialTransaction extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private OperationType operationType;
+
+    public ResourceName getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(ResourceName resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    @Enumerated(EnumType.STRING)
+    private ResourceName resourceName;
 
     /** INBOUND, OUTBOUND, INTERNAL */
     @Enumerated(EnumType.STRING)
