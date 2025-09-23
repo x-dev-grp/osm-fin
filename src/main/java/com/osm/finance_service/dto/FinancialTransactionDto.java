@@ -18,6 +18,7 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
     private String checkNumber;
     private String lotNumber;
     private SupplierDto supplier;
+    private String vendorName;
     private ExpenseDto expense;
     private String description;
     private String invoiceReference;
@@ -30,6 +31,16 @@ public class FinancialTransactionDto extends BaseDto<FinancialTransaction> {
     private Double paidAmount;
     private Double unpaidAmount;
     private OperationType operationType;
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+
 
     @Override
     public String toString() {

@@ -25,49 +25,45 @@ public class FinancialTransaction extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private OperationType operationType;
-
-    public ResourceName getResourceName() {
-        return resourceName;
-    }
-
-    public void setResourceName(ResourceName resourceName) {
-        this.resourceName = resourceName;
-    }
-
     @Enumerated(EnumType.STRING)
     private ResourceName resourceName;
-
-    /** INBOUND, OUTBOUND, INTERNAL */
+    /**
+     * INBOUND, OUTBOUND, INTERNAL
+     */
     @Enumerated(EnumType.STRING)
     private TransactionDirection direction;
-
-    // ==================== AMOUNT & CURRENCY FIELDS ====================
-
-    /** Primary amount in base currency */
+    /**
+     * Primary amount in base currency
+     */
     private BigDecimal amount;
-
-    /** Currency code (TND, USD, EUR, etc.) */
+    /**
+     * Currency code (TND, USD, EUR, etc.)
+     */
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    // ==================== PAYMENT METHOD FIELDS ====================
-
-    /** CASH, CHEQUE, TRANSFER, etc. */
+    // ==================== AMOUNT & CURRENCY FIELDS ====================
+    /**
+     * CASH, CHEQUE, TRANSFER, etc.
+     */
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-
-    /** Bank account used (if applicable) */
+    /**
+     * Bank account used (if applicable)
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bank_account_id")
     private BankAccount bankAccount;
 
+    // ==================== PAYMENT METHOD FIELDS ====================
     /**
      * Check number (if paymentMethod == CHEQUE)
      */
     @Column(name = "check_number", length = 50)
     private String checkNumber;
-
-    /** External system reference (e.g. for bank transfers) */
+    /**
+     * External system reference (e.g. for bank transfers)
+     */
     private String externalTransactionId;
     // ==================== RELATIONSHIPS ====================
     private Double paidAmount;
@@ -77,31 +73,56 @@ public class FinancialTransaction extends BaseEntity {
      */
     @Column(name = "lot_number", length = 50)
     private String lotNumber;
-    /** Supplier (if this is a supplier payment or credit) */
+    private String vendorName;
+    /**
+     * Supplier (if this is a supplier payment or credit)
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
-
-    /** Expense record (if type == EXPENSE) */
+    /**
+     * Expense record (if type == EXPENSE)
+     */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expense_id")
     private Expense expense;
-    /** When the transaction was made */
+    /**
+     * When the transaction was made
+     */
     private LocalDateTime transactionDate;
-    /** Has this been approved? */
+    /**
+     * Has this been approved?
+     */
     private Boolean approved = false;
-    /** When it was approved */
+    /**
+     * When it was approved
+     */
     private LocalDateTime approvalDate;
-    /** Who approved it */
+    /**
+     * Who approved it
+     */
     private String approvedBy;
+    private String description;
+    private String invoiceReference;
+    private String receiptReference;
+
+    public ResourceName getResourceName() {
+        return resourceName;
+    }
 
     // ==================== OPTIONAL METADATA ====================
 
-    private String description;
+    public void setResourceName(ResourceName resourceName) {
+        this.resourceName = resourceName;
+    }
 
-    private String invoiceReference;
+    public String getVendorName() {
+        return vendorName;
+    }
 
-    private String receiptReference;
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
 
     // ==================== TIMING & APPROVAL ====================
 
@@ -123,25 +144,7 @@ public class FinancialTransaction extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FinancialTransaction{" +
-                "transactionType=" + transactionType +
-                ", direction=" + direction +
-                ", amount=" + amount +
-                ", currency=" + currency +
-                ", paymentMethod=" + paymentMethod +
-                ", bankAccount=" + bankAccount +
-                ", checkNumber='" + checkNumber + '\'' +
-                ", lotNumber='" + lotNumber + '\'' +
-                ", supplier=" + supplier +
-                ", expense=" + expense +
-                ", description='" + description + '\'' +
-                ", invoiceReference='" + invoiceReference + '\'' +
-                ", receiptReference='" + receiptReference + '\'' +
-                ", transactionDate=" + transactionDate +
-                ", approved=" + approved +
-                ", approvalDate=" + approvalDate +
-                ", approvedBy='" + approvedBy + '\'' +
-                '}';
+        return "FinancialTransaction{" + "transactionType=" + transactionType + ", direction=" + direction + ", amount=" + amount + ", currency=" + currency + ", paymentMethod=" + paymentMethod + ", bankAccount=" + bankAccount + ", checkNumber='" + checkNumber + '\'' + ", lotNumber='" + lotNumber + '\'' + ", supplier=" + supplier + ", expense=" + expense + ", description='" + description + '\'' + ", invoiceReference='" + invoiceReference + '\'' + ", receiptReference='" + receiptReference + '\'' + ", transactionDate=" + transactionDate + ", approved=" + approved + ", approvalDate=" + approvalDate + ", approvedBy='" + approvedBy + '\'' + '}';
     }
 
     public OperationType getOperationType() {
