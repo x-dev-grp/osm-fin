@@ -32,8 +32,17 @@ public class Expense extends BaseEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private ExpenseCategory category;
 
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
+    }
+
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+    private String checkNumber;
 
     @Enumerated(EnumType.STRING)
     private ExpenseStatus status;

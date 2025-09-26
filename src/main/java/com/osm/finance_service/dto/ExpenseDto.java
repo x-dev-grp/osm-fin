@@ -25,6 +25,7 @@ public class ExpenseDto extends BaseDto<Expense> {
     private String createdBy;
     private Boolean approved;
     private LocalDate approvalDate;
+    private String checkNumber;
 
     public String getInvoiceRef() {
         return invoiceRef;
@@ -92,4 +93,12 @@ public class ExpenseDto extends BaseDto<Expense> {
 
     public LocalDate getApprovalDate() { return approvalDate; }
     public void setApprovalDate(LocalDate approvalDate) { this.approvalDate = approvalDate; }
+
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
+    }
 }
