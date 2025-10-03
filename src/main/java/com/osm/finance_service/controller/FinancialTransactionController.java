@@ -1,7 +1,9 @@
 package com.osm.finance_service.controller;
 
 import com.osm.finance_service.dto.FinancialTransactionDto;
+import com.osm.finance_service.dto.SupplierDto;
 import com.osm.finance_service.model.FinancialTransaction;
+import com.osm.finance_service.repo.SupplierRepository;
 import com.osm.finance_service.service.FinancialTransactionService;
 import com.osm.finance_service.service.WasteFinancialService;
 import com.xdev.xdevbase.apiDTOs.ApiSingleResponse;
@@ -23,14 +25,16 @@ public class FinancialTransactionController extends BaseControllerImpl<Financial
 
     private final FinancialTransactionService financialTransactionService;
     private final WasteFinancialService wasteFinancialService;
+    private final SupplierRepository supplierRepository;
 
-    public FinancialTransactionController(BaseService<FinancialTransaction, FinancialTransactionDto, FinancialTransactionDto> baseService, 
-                                         ModelMapper modelMapper, 
-                                         FinancialTransactionService financialTransactionService,
-                                         WasteFinancialService wasteFinancialService) {
+    public FinancialTransactionController(BaseService<FinancialTransaction, FinancialTransactionDto, FinancialTransactionDto> baseService,
+                                          ModelMapper modelMapper,
+                                          FinancialTransactionService financialTransactionService,
+                                          WasteFinancialService wasteFinancialService, SupplierRepository supplierRepository) {
         super(baseService, modelMapper);
         this.financialTransactionService = financialTransactionService;
         this.wasteFinancialService = wasteFinancialService;
+        this.supplierRepository = supplierRepository;
     }
 
     @PostMapping("/create")
@@ -48,6 +52,8 @@ public class FinancialTransactionController extends BaseControllerImpl<Financial
             }
 
             // Delegate to service
+            var supplier = supplierRepository.findByExternalIdAndIsDeletedFalse(dto.getsupplier().getExternalId());
+            dto.setsupplier(modelMapper.map(supplier, SupplierDto.class));
             FinancialTransactionDto created = financialTransactionService.save(dto);
 
             return ResponseEntity.ok(new ApiSingleResponse<>(true, "Financial transaction created successfully", created));

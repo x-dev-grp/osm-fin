@@ -1,6 +1,5 @@
 package com.osm.finance_service.model;
 
-import com.xdev.communicator.models.shared.enums.PartnerCategory;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
@@ -10,32 +9,10 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "supplier")
 public class Supplier extends BaseEntity {
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "generic_suppliertype_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "generic_suppliertype_id")
     private BaseType genericSupplierType;
     private Boolean hasStorage = false;
-    private String name;
-    private String lastname;
-    private String phone;
-    private String email;
-    private String address;
-    private String rib;
-    private String bankName;
-    private String matriculeFiscal;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private BaseType region;
-    // Calculated fields (not persisted)
-    @Transient
-    private Float totalOliveQuantity;
-    @Transient
-    private Float totalOilQuantity;
-    @Transient
-    private Float totalPaidAmount;
-    @Transient
-    private Float totalUnpaidAmount;
-    @Transient
-    private Float totalDebt;
 
     public Boolean getHasStorage() {
         return hasStorage;
@@ -43,74 +20,6 @@ public class Supplier extends BaseEntity {
 
     public void setHasStorage(Boolean hasStorage) {
         this.hasStorage = hasStorage;
-    }
-
-    public String getMatriculeFiscal() {
-        return matriculeFiscal;
-    }
-
-    public void setMatriculeFiscal(String matriculeFiscal) {
-        this.matriculeFiscal = matriculeFiscal;
-    }
-
-    public Float getTotalOliveQuantity() {
-        return totalOliveQuantity;
-    }
-
-    public void setTotalOliveQuantity(Float totalOliveQuantity) {
-        this.totalOliveQuantity = totalOliveQuantity;
-    }
-
-    public Float getTotalOilQuantity() {
-        return totalOilQuantity;
-    }
-
-    /**
-     * Sums the olive quantity from all olive deliveries.
-     */
-
-    public void setTotalOilQuantity(Float totalOilQuantity) {
-        this.totalOilQuantity = totalOilQuantity;
-    }
-
-    public Float getTotalPaidAmount() {
-        return totalPaidAmount;
-    }
-
-    /**
-     * Sums the paid amounts from all oil deliveries.
-     * (Assuming olive deliveries do not carry financial fields.)
-     */
-
-
-    public void setTotalPaidAmount(Float totalPaidAmount) {
-        this.totalPaidAmount = totalPaidAmount;
-    }
-
-    public Float getTotalUnpaidAmount() {
-        return totalUnpaidAmount;
-    }
-
-    /**
-     * Sums the unpaid amounts from all oil deliveries.
-     */
-
-
-    public void setTotalUnpaidAmount(Float totalUnpaidAmount) {
-        this.totalUnpaidAmount = totalUnpaidAmount;
-    }
-
-    public Float getTotalDebt() {
-        return totalDebt;
-    }
-
-    /**
-     * Calculates total debt (for example, as the difference between unpaid and paid amounts).
-     */
-
-
-    public void setTotalDebt(Float totalDebt) {
-        this.totalDebt = totalDebt;
     }
 
     public String getName() {
@@ -161,10 +70,6 @@ public class Supplier extends BaseEntity {
         this.rib = rib;
     }
 
-    // Standard getters and setters for basic fields
-
-    // Calculated totals based on child class values
-
     public String getBankName() {
         return bankName;
     }
@@ -172,6 +77,8 @@ public class Supplier extends BaseEntity {
     public void setBankName(String bankName) {
         this.bankName = bankName;
     }
+    private String name;
+    private String lastname;
 
     public BaseType getRegion() {
         return region;
@@ -180,6 +87,25 @@ public class Supplier extends BaseEntity {
     public void setRegion(BaseType region) {
         this.region = region;
     }
+    private String phone;
+    private String email;
+    private String address;
+    private String rib;
+    private String bankName;
+    private String matriculeFiscal;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BaseType region;
+    // Calculated fields (not persisted)
+    @Transient
+    private Float totalOliveQuantity;
+    @Transient
+    private Float totalOilQuantity;
+    @Transient
+    private Float totalPaidAmount;
+    @Transient
+    private Float totalUnpaidAmount;
+    @Transient
+    private Float totalDebt;
 
     public BaseType getGenericSupplierType() {
         return genericSupplierType;
@@ -189,5 +115,51 @@ public class Supplier extends BaseEntity {
         this.genericSupplierType = genericSupplierType;
     }
 
+    public String getMatriculeFiscal() {
+        return matriculeFiscal;
+    }
 
+    public void setMatriculeFiscal(String matriculeFiscal) {
+        this.matriculeFiscal = matriculeFiscal;
+    }
+
+    public Float getTotalOliveQuantity() {
+        return totalOliveQuantity;
+    }
+
+    public void setTotalOliveQuantity(Float totalOliveQuantity) {
+        this.totalOliveQuantity = totalOliveQuantity;
+    }
+
+    public Float getTotalOilQuantity() {
+        return totalOilQuantity;
+    }
+
+    public void setTotalOilQuantity(Float totalOilQuantity) {
+        this.totalOilQuantity = totalOilQuantity;
+    }
+
+    public Float getTotalPaidAmount() {
+        return totalPaidAmount;
+    }
+
+    public void setTotalPaidAmount(Float totalPaidAmount) {
+        this.totalPaidAmount = totalPaidAmount;
+    }
+
+    public Float getTotalUnpaidAmount() {
+        return totalUnpaidAmount;
+    }
+
+    public void setTotalUnpaidAmount(Float totalUnpaidAmount) {
+        this.totalUnpaidAmount = totalUnpaidAmount;
+    }
+
+    public Float getTotalDebt() {
+        return totalDebt;
+    }
+
+    public void setTotalDebt(Float totalDebt) {
+        this.totalDebt = totalDebt;
+    }
 }

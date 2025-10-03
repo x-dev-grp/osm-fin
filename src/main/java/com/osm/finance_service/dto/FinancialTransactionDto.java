@@ -1,8 +1,7 @@
 package com.osm.finance_service.dto;
 
-import com.xdev.communicator.models.shared.enums.*;
 import com.osm.finance_service.model.FinancialTransaction;
-import com.osm.finance_service.model.Supplier;
+import com.xdev.communicator.models.enums.*;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 import java.math.BigDecimal;

@@ -8,10 +8,9 @@ import com.osm.finance_service.model.BaseType;
 import com.osm.finance_service.model.OilCredit;
 import com.osm.finance_service.repo.OilCreditRepository;
 import com.xdev.communicator.models.common.dtos.apiDTOs.ApiSingleResponse;
-
-import com.xdev.communicator.models.shared.dto.OilTransactionDTO;
-import com.xdev.communicator.models.shared.enums.TransactionState;
-import com.xdev.communicator.models.shared.enums.TransactionType;
+import com.xdev.communicator.models.enums.TransactionState;
+import com.xdev.communicator.models.enums.TransactionType;
+import com.xdev.communicator.models.shared.OilTransactionDTO;
 import com.xdev.xdevbase.repos.BaseRepository;
 import com.xdev.xdevbase.services.impl.BaseServiceImpl;
 import org.modelmapper.ModelMapper;
@@ -31,8 +30,9 @@ public class OilCreditService extends BaseServiceImpl<OilCredit, OilCreditDto, O
    
    private final OilCreditRepository oilCreditRepository;
    private final OilTransactionFeignService oilTransactionFeignService;
-   private final BaseTypeService baseTypeService;
-    public OilCreditService(BaseRepository<OilCredit> repository, ModelMapper modelMapper, OilCreditRepository oilCreditRepository, OilTransactionFeignService oilTransactionFeignService, BaseTypeService baseTypeService) {
+    private final GenericTypeService baseTypeService;
+
+    public OilCreditService(BaseRepository<OilCredit> repository, ModelMapper modelMapper, OilCreditRepository oilCreditRepository, OilTransactionFeignService oilTransactionFeignService, GenericTypeService baseTypeService) {
         super(repository, modelMapper);
         this.oilCreditRepository = oilCreditRepository;
         this.oilTransactionFeignService = oilTransactionFeignService;

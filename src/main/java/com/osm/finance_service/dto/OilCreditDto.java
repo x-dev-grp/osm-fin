@@ -3,11 +3,9 @@ package com.osm.finance_service.dto;
 import com.osm.finance_service.ennum.CreditState;
 import com.osm.finance_service.ennum.UnitType;
 import com.osm.finance_service.model.OilCredit;
-import com.xdev.communicator.models.common.dtos.BaseTypeDto;
+import com.xdev.communicator.models.shared.BaseTypeDto;
 import com.xdev.xdevbase.dtos.BaseDto;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class OilCreditDto extends BaseDto<OilCredit> {

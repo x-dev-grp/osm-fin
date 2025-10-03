@@ -1,19 +1,26 @@
-package com.osm.finance_service.model;
+package com.osm.finance_service.dto;
 
+
+import com.osm.finance_service.model.BaseType;
 import com.xdev.communicator.models.enums.TypeCategory;
-import com.xdev.xdevbase.entities.BaseEntity;
-import jakarta.persistence.Entity;
+import com.xdev.xdevbase.dtos.BaseDto;
 
-@Entity
-public class BaseType extends BaseEntity {
+public class BaseTypeDto extends BaseDto<BaseType> {
     private String name; // The name of the type (e.g., "Plastic Waste", "Local SupplierInfo")
     private String description; // Description of the type
 
     private TypeCategory type;
 
+    public BaseTypeDto() {
+    }
 
-    public BaseType() {
 
+    public TypeCategory getType() {
+        return type;
+    }
+
+    public void setType(TypeCategory type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -32,11 +39,5 @@ public class BaseType extends BaseEntity {
         this.description = description;
     }
 
-    public TypeCategory getType() {
-        return type;
-    }
 
-    public void setType(TypeCategory type) {
-        this.type = type;
-    }
 }

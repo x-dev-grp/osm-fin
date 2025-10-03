@@ -1,16 +1,16 @@
 package com.osm.finance_service.service;
 
- import com.osm.finance_service.dto.FinancialTransactionDto;
- import com.xdev.communicator.models.shared.enums.Currency;
-import com.xdev.communicator.models.shared.enums.TransactionDirection;
-import com.xdev.communicator.models.shared.enums.TransactionType;
- import com.osm.finance_service.model.FinancialTransaction;
+import com.osm.finance_service.dto.FinancialTransactionDto;
+import com.osm.finance_service.model.FinancialTransaction;
 import com.osm.finance_service.repo.FinancialTransactionRepository;
+import com.xdev.communicator.models.enums.Currency;
+import com.xdev.communicator.models.enums.TransactionDirection;
+import com.xdev.communicator.models.enums.TransactionType;
 import com.xdev.xdevbase.models.Action;
 import com.xdev.xdevbase.repos.BaseRepository;
 import com.xdev.xdevbase.services.impl.BaseServiceImpl;
- import com.xdev.xdevbase.utils.OSMLogger;
- import org.modelmapper.ModelMapper;
+import com.xdev.xdevbase.utils.OSMLogger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

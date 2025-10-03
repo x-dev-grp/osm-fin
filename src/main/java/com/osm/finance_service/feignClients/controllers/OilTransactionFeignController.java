@@ -1,7 +1,7 @@
 package com.osm.finance_service.feignClients.controllers;
 
 import com.xdev.communicator.feignControllers.BaseFeignController;
-import com.xdev.communicator.models.shared.dto.OilTransactionDTO;
+import com.xdev.communicator.models.shared.OilTransactionDTO;
 import com.xdev.xdevsecurity.config.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 

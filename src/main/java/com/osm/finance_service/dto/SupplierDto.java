@@ -1,7 +1,7 @@
 package com.osm.finance_service.dto;
 
- import com.osm.finance_service.model.Supplier;
- import com.xdev.communicator.models.shared.dto.BaseTypeDto;
+import com.osm.finance_service.model.Supplier;
+import com.xdev.communicator.models.shared.BaseTypeDto;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 /**

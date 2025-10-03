@@ -3,6 +3,7 @@ package com.osm.finance_service.service;
 
 import com.osm.finance_service.dto.SupplierDto;
 import com.osm.finance_service.model.Supplier;
+import com.osm.finance_service.repo.GenericRepository;
 import com.xdev.xdevbase.models.Action;
 import com.xdev.xdevbase.repos.BaseRepository;
 import com.xdev.xdevbase.services.impl.BaseServiceImpl;
@@ -17,16 +18,16 @@ import java.util.Set;
 public class SupplierTypeService extends BaseServiceImpl<Supplier, SupplierDto, SupplierDto> {
 
     // Repository to reattach BaseType entities (for region and supplier type)
-    private final BaseTypeService baseTypeRepository;
+    private final GenericRepository genericRepository;
 
     // Constructor injection: in addition to Supplier repository and ModelMapper,
     // inject the BaseType repository.
     public SupplierTypeService(BaseRepository<Supplier> repository,
                                ModelMapper modelMapper,
-                               BaseTypeService baseTypeRepository
+                               GenericRepository genericRepository
     ) {
         super(repository, modelMapper);
-        this.baseTypeRepository = baseTypeRepository;
+        this.genericRepository = genericRepository;
     }
 
 

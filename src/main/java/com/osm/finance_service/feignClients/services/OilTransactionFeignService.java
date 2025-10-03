@@ -3,7 +3,7 @@ package com.osm.finance_service.feignClients.services;
 
 import com.xdev.communicator.feignControllers.BaseFeignController;
 import com.xdev.communicator.feignServices.BaseFeignService;
-import com.xdev.communicator.models.shared.dto.OilTransactionDTO;
+import com.xdev.communicator.models.shared.OilTransactionDTO;
 import org.springframework.stereotype.Service;
 
 @Service
