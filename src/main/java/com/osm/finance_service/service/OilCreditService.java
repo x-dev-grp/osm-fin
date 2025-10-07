@@ -2,7 +2,7 @@ package com.osm.finance_service.service;
 
 
 import com.osm.finance_service.dto.OilCreditDto;
-import com.osm.finance_service.ennum.CreditState;
+import com.xdev.communicator.models.enums.CreditState;
 import com.osm.finance_service.feignClients.services.OilTransactionFeignService;
 import com.osm.finance_service.model.BaseType;
 import com.osm.finance_service.model.OilCredit;

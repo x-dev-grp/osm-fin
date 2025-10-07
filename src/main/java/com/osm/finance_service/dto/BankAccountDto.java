@@ -1,6 +1,6 @@
 package com.osm.finance_service.dto;
 
-import com.osm.finance_service.ennum.Currency;
+import com.xdev.communicator.models.enums.Currency;
 import com.osm.finance_service.model.BankAccount;
 import com.xdev.xdevbase.dtos.BaseDto;
 

@@ -1,7 +1,6 @@
 package com.osm.finance_service.model;
 
-import com.osm.finance_service.ennum.ResourceName;
-import com.xdev.communicator.models.enums.*;
+ import com.xdev.communicator.models.enums.*;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 

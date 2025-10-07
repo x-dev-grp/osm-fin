@@ -1,7 +1,7 @@
 package com.osm.finance_service.dto;
 
-import com.osm.finance_service.ennum.CreditState;
-import com.osm.finance_service.ennum.UnitType;
+import com.xdev.communicator.models.enums.CreditState;
+import com.xdev.communicator.models.enums.UnitType;
 import com.osm.finance_service.model.OilCredit;
 import com.xdev.communicator.models.shared.BaseTypeDto;
 import com.xdev.xdevbase.dtos.BaseDto;

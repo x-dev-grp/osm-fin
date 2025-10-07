@@ -1,9 +1,9 @@
 package com.osm.finance_service.dto;
 
-import com.osm.finance_service.ennum.ExpenseCategory;
+import com.xdev.communicator.models.enums.ExpenseCategory;
 import com.osm.finance_service.model.Expense;
-import com.osm.finance_service.ennum.PaymentMethod;
-import com.osm.finance_service.ennum.ExpenseStatus;
+import com.xdev.communicator.models.enums.PaymentMethod;
+import com.xdev.communicator.models.enums.ExpenseStatus;
 import com.xdev.xdevbase.dtos.BaseDto;
 
 import java.time.LocalDate;

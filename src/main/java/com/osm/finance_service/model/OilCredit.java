@@ -1,7 +1,7 @@
 package com.osm.finance_service.model;
 
-import com.osm.finance_service.ennum.CreditState;
-import com.osm.finance_service.ennum.UnitType;
+import com.xdev.communicator.models.enums.CreditState;
+import com.xdev.communicator.models.enums.UnitType;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 

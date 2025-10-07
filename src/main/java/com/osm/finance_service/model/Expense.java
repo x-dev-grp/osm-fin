@@ -1,9 +1,9 @@
 package com.osm.finance_service.model;
 
 
-import com.osm.finance_service.ennum.ExpenseCategory;
-import com.osm.finance_service.ennum.ExpenseStatus;
-import com.osm.finance_service.ennum.PaymentMethod;
+ import com.xdev.communicator.models.enums.ExpenseCategory;
+ import com.xdev.communicator.models.enums.ExpenseStatus;
+import com.xdev.communicator.models.enums.PaymentMethod;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,11 +1,10 @@
 package com.osm.finance_service.model;
 
-import com.osm.finance_service.ennum.Currency;
-import com.xdev.xdevbase.entities.BaseEntity;
+ import com.xdev.communicator.models.enums.Currency;
+ import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "bank_account")
