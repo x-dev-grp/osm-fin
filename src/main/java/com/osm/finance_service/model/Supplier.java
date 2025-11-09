@@ -93,6 +93,9 @@ public class Supplier extends BaseEntity {
     private String rib;
     private String bankName;
     private String matriculeFiscal;
+
+
+
     @ManyToOne(fetch = FetchType.EAGER)
     private BaseType region;
     // Calculated fields (not persisted)

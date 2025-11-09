@@ -8,21 +8,27 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+import static org.apache.commons.math3.util.Precision.round;
+
 @Entity
 @Table(name = "oil_credits")
 public class OilCredit extends BaseEntity implements Serializable {
 
     private String emballage;
 
-    private Double quantity;
+    // Default to 0d for safety
+    private Double quantity = 0d;
 
     @Enumerated(EnumType.STRING)
     private UnitType unit;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private BaseType oil_type;
+
     private UUID destinataire;
     private UUID transaction_id_in;
     private UUID transaction_id_out;
+
     @Enumerated(EnumType.STRING)
     private CreditState creditState = CreditState.PENDING;
 
@@ -42,13 +48,13 @@ public class OilCredit extends BaseEntity implements Serializable {
         this.transaction_id_out = transaction_id_out;
     }
 
-
     public String getEmballage() {
         return emballage;
     }
 
     public void setEmballage(String emballage) {
-        this.emballage = emballage;
+        // trim; allow null
+        this.emballage = (emballage == null) ? null : emballage.trim();
     }
 
     public Double getQuantity() {
@@ -56,7 +62,8 @@ public class OilCredit extends BaseEntity implements Serializable {
     }
 
     public void setQuantity(Double quantity) {
-        this.quantity = quantity;
+        // null -> 0d and round to 3 decimals
+        this.quantity = (quantity == null) ? 0d : round(quantity, 3);
     }
 
     public UnitType getUnit() {
@@ -82,7 +89,6 @@ public class OilCredit extends BaseEntity implements Serializable {
     public void setDestinataire(UUID destinataire) {
         this.destinataire = destinataire;
     }
-
 
     public CreditState getCreditState() {
         return creditState;
