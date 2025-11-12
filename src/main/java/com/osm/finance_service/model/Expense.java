@@ -1,8 +1,7 @@
 package com.osm.finance_service.model;
 
-
- import com.xdev.communicator.models.enums.ExpenseCategory;
- import com.xdev.communicator.models.enums.ExpenseStatus;
+import com.xdev.communicator.models.enums.ExpenseCategory;
+import com.xdev.communicator.models.enums.ExpenseStatus;
 import com.xdev.communicator.models.enums.PaymentMethod;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.Entity;
@@ -12,6 +11,8 @@ import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import static org.apache.commons.math3.util.Precision.round;
 
 @Entity
 @Table(name = "expenses")
@@ -26,22 +27,17 @@ public class Expense extends BaseEntity implements Serializable {
 
     private LocalDate date;
 
-    private Double amount;
+    // Default to 0d for safety
+    private Double amount = 0d;
 
     private String vendor;
+
     @Enumerated(EnumType.STRING)
     private ExpenseCategory category;
 
-    public String getCheckNumber() {
-        return checkNumber;
-    }
-
-    public void setCheckNumber(String checkNumber) {
-        this.checkNumber = checkNumber;
-    }
-
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+
     private String checkNumber;
 
     @Enumerated(EnumType.STRING)
@@ -51,10 +47,12 @@ public class Expense extends BaseEntity implements Serializable {
 
     private String receiptNumber;
 
-
-    private Boolean approved;
+    // Default to FALSE for safety
+    private Boolean approved = Boolean.FALSE;
 
     private LocalDate approvalDate;
+
+    // ===== Getters / Setters =====
 
     public String getInvoiceRef() {
         return invoiceRef;
@@ -93,7 +91,8 @@ public class Expense extends BaseEntity implements Serializable {
     }
 
     public void setAmount(Double amount) {
-        this.amount = amount;
+        // null -> 0d and round to 3 decimals
+        this.amount = (amount == null) ? 0d : round(amount, 3);
     }
 
     public String getVendor() {
@@ -118,6 +117,14 @@ public class Expense extends BaseEntity implements Serializable {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
     }
 
     public ExpenseStatus getStatus() {
@@ -149,7 +156,8 @@ public class Expense extends BaseEntity implements Serializable {
     }
 
     public void setApproved(Boolean approved) {
-        this.approved = approved;
+        // null -> FALSE
+        this.approved = (approved == null) ? Boolean.FALSE : approved;
     }
 
     public LocalDate getApprovalDate() {

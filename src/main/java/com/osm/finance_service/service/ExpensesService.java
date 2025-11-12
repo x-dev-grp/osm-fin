@@ -53,8 +53,6 @@ public class ExpensesService extends BaseServiceImpl<Expense, ExpenseDto, Expens
 
     @Override
     public Set<Action> actionsMapping(Expense expense) {
-        Set<Action> actions = new HashSet<>();
-        actions.addAll(Set.of(Action.UPDATE, Action.DELETE, Action.READ));
-        return actions;
+        return new HashSet<>(Set.of(Action.UPDATE, Action.DELETE, Action.READ));
     }
 }

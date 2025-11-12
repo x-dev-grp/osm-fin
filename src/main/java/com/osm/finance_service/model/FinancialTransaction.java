@@ -1,10 +1,11 @@
 package com.osm.finance_service.model;
 
- import com.xdev.communicator.models.enums.*;
+import com.xdev.communicator.models.enums.*;
 import com.xdev.xdevbase.entities.BaseEntity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "financial_transactions")
 public class FinancialTransaction extends BaseEntity {
 
-
     /**
      * PAYMENT, EXPENSE, CREDIT, DEBIT, TRANSFER, etc.
      */
@@ -24,17 +24,21 @@ public class FinancialTransaction extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private OperationType operationType;
+
     @Enumerated(EnumType.STRING)
     private ResourceName resourceName;
+
     /**
      * INBOUND, OUTBOUND, INTERNAL
      */
     @Enumerated(EnumType.STRING)
     private TransactionDirection direction;
+
     /**
      * Primary amount in base currency
      */
-    private BigDecimal amount;
+    private BigDecimal amount = BigDecimal.ZERO;
+
     /**
      * Currency code (TND, USD, EUR, etc.)
      */
@@ -47,6 +51,7 @@ public class FinancialTransaction extends BaseEntity {
      */
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+
     /**
      * Bank account used (if applicable)
      */
@@ -60,56 +65,67 @@ public class FinancialTransaction extends BaseEntity {
      */
     @Column(name = "check_number", length = 50)
     private String checkNumber;
+
     /**
      * External system reference (e.g. for bank transfers)
      */
     private String externalTransactionId;
+
     // ==================== RELATIONSHIPS ====================
-    private Double paidAmount;
-    private Double unpaidAmount;
+    private Double paidAmount = 0d;
+    private Double unpaidAmount = 0d;
+
     /**
      * Related delivery lot number
      */
     @Column(name = "lot_number", length = 50)
     private String lotNumber;
+
     private String vendorName;
+
     /**
      * Supplier (if this is a supplier payment or credit)
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+
     /**
      * Expense record (if type == EXPENSE)
      */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expense_id")
     private Expense expense;
+
     /**
      * When the transaction was made
      */
     private LocalDateTime transactionDate;
+
     /**
      * Has this been approved?
      */
-    private Boolean approved = false;
+    private Boolean approved = Boolean.FALSE;
+
     /**
      * When it was approved
      */
     private LocalDateTime approvalDate;
+
     /**
      * Who approved it
      */
     private String approvedBy;
+
     private String description;
     private String invoiceReference;
     private String receiptReference;
 
+    // ==================== OPTIONAL METADATA ====================
+
     public ResourceName getResourceName() {
         return resourceName;
     }
-
-    // ==================== OPTIONAL METADATA ====================
 
     public void setResourceName(ResourceName resourceName) {
         this.resourceName = resourceName;
@@ -130,7 +146,7 @@ public class FinancialTransaction extends BaseEntity {
     }
 
     public void setPaidAmount(Double paidAmount) {
-        this.paidAmount = paidAmount;
+        this.paidAmount = (paidAmount == null) ? 0d : org.apache.commons.math3.util.Precision.round(paidAmount, 3);
     }
 
     public Double getUnpaidAmount() {
@@ -138,12 +154,30 @@ public class FinancialTransaction extends BaseEntity {
     }
 
     public void setUnpaidAmount(Double unpaidAmount) {
-        this.unpaidAmount = unpaidAmount;
+        this.unpaidAmount = (unpaidAmount == null) ? 0d : org.apache.commons.math3.util.Precision.round(unpaidAmount, 3);
     }
 
     @Override
     public String toString() {
-        return "FinancialTransaction{" + "transactionType=" + transactionType + ", direction=" + direction + ", amount=" + amount + ", currency=" + currency + ", paymentMethod=" + paymentMethod + ", bankAccount=" + bankAccount + ", checkNumber='" + checkNumber + '\'' + ", lotNumber='" + lotNumber + '\'' + ", supplier=" + supplier + ", expense=" + expense + ", description='" + description + '\'' + ", invoiceReference='" + invoiceReference + '\'' + ", receiptReference='" + receiptReference + '\'' + ", transactionDate=" + transactionDate + ", approved=" + approved + ", approvalDate=" + approvalDate + ", approvedBy='" + approvedBy + '\'' + '}';
+        return "FinancialTransaction{" +
+                "transactionType=" + transactionType +
+                ", direction=" + direction +
+                ", amount=" + amount +
+                ", currency=" + currency +
+                ", paymentMethod=" + paymentMethod +
+                ", bankAccount=" + bankAccount +
+                ", checkNumber='" + checkNumber + '\'' +
+                ", lotNumber='" + lotNumber + '\'' +
+                ", supplier=" + supplier +
+                ", expense=" + expense +
+                ", description='" + description + '\'' +
+                ", invoiceReference='" + invoiceReference + '\'' +
+                ", receiptReference='" + receiptReference + '\'' +
+                ", transactionDate=" + transactionDate +
+                ", approved=" + approved +
+                ", approvalDate=" + approvalDate +
+                ", approvedBy='" + approvedBy + '\'' +
+                '}';
     }
 
     public OperationType getOperationType() {
@@ -175,7 +209,8 @@ public class FinancialTransaction extends BaseEntity {
     }
 
     public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+        // keep non-null and monetary scale 2
+        this.amount = (amount == null) ? BigDecimal.ZERO : amount.setScale(2, RoundingMode.HALF_UP);
     }
 
     public Currency getCurrency() {
@@ -234,7 +269,6 @@ public class FinancialTransaction extends BaseEntity {
         this.supplier = supplier;
     }
 
-
     public Expense getExpense() {
         return expense;
     }
@@ -280,7 +314,7 @@ public class FinancialTransaction extends BaseEntity {
     }
 
     public void setApproved(Boolean approved) {
-        this.approved = approved;
+        this.approved = (approved == null) ? Boolean.FALSE : approved;
     }
 
     public LocalDateTime getApprovalDate() {
