@@ -7,6 +7,7 @@ import com.osm.finance_service.service.GenericTypeService;
 import com.xdev.xdevbase.controllers.impl.BaseControllerImpl;
 import com.xdev.xdevbase.services.BaseService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,5 +42,10 @@ public class GenericTypeController extends BaseControllerImpl<BaseType, BaseType
     @Override
     protected String getResourceName() {
         return "BaseType".toUpperCase();
+    }
+
+    @Override
+    public ResponseEntity<?> resolve(String publicCode) {
+        return null;
     }
 }
