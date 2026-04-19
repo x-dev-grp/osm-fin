@@ -7,6 +7,7 @@ import com.osm.finance_service.model.Expense;
 import com.xdev.xdevbase.models.OSMModule;
 import com.xdev.xdevbase.services.BaseService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +25,10 @@ public class ExpensesController extends BaseControllerImpl<Expense, ExpenseDto, 
     @Override
     protected String getResourceName() {
         return "Expense".toUpperCase();
+    }
+
+    @Override
+    public ResponseEntity<?> resolve(String publicCode) {
+        return null;
     }
 }

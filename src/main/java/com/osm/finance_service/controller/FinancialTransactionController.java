@@ -69,7 +69,12 @@ public class FinancialTransactionController extends BaseControllerImpl<Financial
     public ResponseEntity<ApiSingleResponse<FinancialTransaction, FinancialTransactionDto>> create(@RequestBody FinancialTransactionDto dto) {
         return save(dto);
     }
-    
+
+    @Override
+    public ResponseEntity<?> resolve(String publicCode) {
+        return null;
+    }
+
     @Override
     protected String getResourceName() {
         return "FinancialTransaction".toUpperCase();

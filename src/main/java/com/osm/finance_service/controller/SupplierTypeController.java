@@ -30,4 +30,9 @@ public class SupplierTypeController extends BaseControllerImpl<Supplier, Supplie
     protected String getResourceName() {
         return "Supplier".toUpperCase();
     }
+
+    @Override
+    public ResponseEntity<?> resolve(String publicCode) {
+        return null;
+    }
 }
