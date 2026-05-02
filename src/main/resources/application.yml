@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ${SPRING_APP_NAME:financeservice}
+    name: ${SPRING_APP_NAME:finance-service}
 
   main:
     banner-mode: ${BANNER_MODE:console}
