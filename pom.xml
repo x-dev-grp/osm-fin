@@ -12,9 +12,9 @@
         <relativePath/>
     </parent>
     <groupId>com.osm</groupId>
-    <artifactId>financeservice</artifactId>
+    <artifactId>finance-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>financeservice</name>
+    <name>finance-service</name>
     <description>OSM - Finance Service</description>
 
     <properties>
