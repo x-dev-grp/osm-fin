@@ -71,6 +71,9 @@ eureka:
 server:
   port: ${SERVER_PORT:8085}
   max-http-request-header-size: ${MAX_HTTP_REQUEST_HEADER_SIZE:32KB}  # Boot 3.x+
+  error:
+    include-message: always
+    include-binding-errors: always
 
 logging:
   level:
