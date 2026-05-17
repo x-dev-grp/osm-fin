@@ -14,15 +14,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class FinancialTransactionService extends BaseServiceImpl<FinancialTransaction, FinancialTransactionDto, FinancialTransactionDto> {
-    private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.BASIC_ISO_DATE;
 
     private final FinancialTransactionRepository financialTransactionRepository;
     public FinancialTransactionService(BaseRepository<FinancialTransaction> repository, ModelMapper modelMapper, FinancialTransactionRepository financialTransactionRepository) {
@@ -97,10 +94,7 @@ public class FinancialTransactionService extends BaseServiceImpl<FinancialTransa
     }
 
     private String generateNextInvoiceRef() {
-        long count = financialTransactionRepository.count();
-        String date = LocalDate.now().format(DATE_FMT);
-        String seq = String.format("%06d", count + 1);
-        return "INV-" + date + "-" + seq;
+        return generateBusinessCode("invoiceReference", "INV");
     }
 
     private TransactionDirection inferDirection(TransactionType type) {
